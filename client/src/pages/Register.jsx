@@ -18,7 +18,7 @@ const Register = () => {
   return (
     <section className="register">
       <div className="container">
-        <h2>Sign up</h2>
+        <h2 className="sign-up">Sign Up</h2>
         <form className="form register__form">
           <p className="form__error-message">This is an error message</p>
           <input type="text" placeholder="Full name" name="name" value={userData.name} onChange={changeInputHandler} />

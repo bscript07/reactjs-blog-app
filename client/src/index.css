@@ -363,3 +363,58 @@ input, select, textarea {
     text-align: center;
     margin: 0 auto;
 }
+
+.sign-up {
+    text-align: center;
+}
+
+/*LOGIN*/
+
+.sign-in {
+    text-align: center;
+}
+
+.login-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-up-content {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/*AUTHORS*/
+
+.authors__container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+}
+
+.author {
+    display: flex;
+    gap: 1rem;
+    background: var(--color-white);
+    padding: 1rem;
+    border-radius: var(--radius-3);
+    transition: var(--transition);
+}
+
+.author:hover {
+    box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.07);
+}
+
+.author__avatar {
+    width: 5rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 0.3rem solid var(--color-bg);
+    overflow: hidden;
+}
+
+.author__info p {
+    margin-top: 1rem;
+}
