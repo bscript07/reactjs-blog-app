@@ -166,3 +166,40 @@ nav {
 .nav__toggle-btn {
     display: none;
 }
+
+/*FOOTER*/
+
+footer {
+    background: var(--color-gray-900);
+    margin-top: 6rem;
+    padding-top: 6rem;
+}
+
+.footer__categories {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+.footer__categories a {
+    background: var(--color-gray-700);
+    color: var(--color-white);
+    padding: 0.6rem 1.4rem;
+    border-radius: var(--radius-2);
+    transition: var(--transition);
+}
+
+.footer__categories a:hover {
+    background: var(--color-white);
+    color: var(--color-gray-900);
+}
+
+.footer__copyright {
+    text-align: center;
+    border-top: 2px solid var(--color-gray-700);
+    padding: 1rem;
+    color: var(--color-white);
+    font-weight: 300;
+}
