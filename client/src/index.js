@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import UserProfile from './pages/UserProfile';
 import CreatePost from './pages/CreatePost';
 import EditPost from './pages/EditPost';
+import DeletePost from './pages/DeletePost';
 import Authors from './pages/Authors';
 import CategoryPosts from './pages/CategoryPosts';
 import Dashboard from './pages/Dashboard';
@@ -26,15 +27,16 @@ const router = createBrowserRouter([
     children: [
       {index:true, element: <Home />},
       {path:'posts/:id', element: <PostDetails />},
-      {path:'create', element: <CreatePost />},
       {path:'register', element: <Register />},
-      {path:'profile/:id', element: <UserProfile />},
       {path:'login', element: <Login />},
+      {path:'profile/:id', element: <UserProfile />},
       {path:'authors', element: <Authors />},
+      {path:'create', element: <CreatePost />},
       {path:'posts/categories/:category', element: <CategoryPosts />},
       {path:'posts/users/:id', element: <AuthorPosts />},
       {path:'myposts/:id', element: <Dashboard />},
       {path:'posts/:id/edit', element: <EditPost />},
+      {path:'posts/:id/delete', element: <DeletePost />},
       {path:'logout', element: <Logout />},
     ]
   }

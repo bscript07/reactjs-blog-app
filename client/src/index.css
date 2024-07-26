@@ -243,7 +243,7 @@ footer {
 .post__thumbnail {
     border-radius: var(--radius-3);
     overflow: hidden;
-    height: 16rem;
+    height: 13rem;
 }
 
 .post__content {
@@ -368,6 +368,14 @@ input, select, textarea {
     text-align: center;
 }
 
+/* custom style for react quill*/
+
+.ql-editor {
+    overflow: scroll;
+    background: var(--color-white);
+    height: 8rem !important
+}
+
 /*LOGIN*/
 
 .sign-in {
@@ -418,3 +426,219 @@ input, select, textarea {
 .author__info p {
     margin-top: 1rem;
 }
+
+/*PROFILE*/
+
+.profile__container {
+    display: grid;
+    place-items: center;
+    text-align: center;
+}
+
+.profile__details {
+    width: 100%;
+}
+
+.avatar__wrapper {
+    width: 15rem;
+    aspect-ratio: 1/1;
+    position: relative;
+    margin-inline: auto;
+    margin-top: 1rem;
+}
+
+.profile__avatar {
+    height: 100%;
+    border-radius: 50%;
+    border: 1rem solid var(--color-white);
+    overflow: hidden;
+}
+
+.avatar__form {
+    height: 1rem;
+}
+
+.avatar__form input {
+    visibility: hidden;
+}
+
+.avatar__form label, .profile__avatar-btn {
+    background: var(--color-gray-900);
+    color: var(--color-white);
+    font-size: 1.2rem;
+    position: absolute;
+    right: 2rem;
+    bottom: 1.4rem;
+    width: 3rem;
+    height: 3rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+}
+
+.profile__avatar-btn {
+    cursor: pointer;
+    padding: 0;
+    background: var(--color-primary);
+}
+
+.profile__details h1 {
+    margin-top: 1.5rem;
+}
+
+.form.profile__form {
+    margin-top: 3rem;
+    margin-inline: auto;
+    width: var(--form-width);
+}
+
+.form.profile__form {
+    align-items: center;
+}
+
+/*DASHBOARD*/
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.dashboard__post {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: var(--color-white);
+    padding: 0.5rem 1.2rem;
+    border-radius: var(--radius-3);
+    margin-bottom: 1rem;
+}
+
+.dashboard__post-info {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    align-items: center;
+}
+
+.dashboard__post-thumbnail {
+    width: 4rem;
+    border-radius: var(--radius-1);
+    overflow: hidden;
+}
+
+.dashboard__post-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+/*CREATE*/
+
+.create-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-post h2 {
+    text-align: center;
+}
+
+/*MEDIA QUERIES*/
+
+@media screen and (max-width: 800px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    h3 {
+        font-size: 1.35rem;
+    }
+
+    .container {
+        width: var(--container-width-md);
+    }
+
+    /*NAVBAR*/
+
+    .nav__container {
+        position: relative;
+    }
+
+    .nav__menu {
+        position: absolute;
+        top: 5rem;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .nav__menu li {
+        width: 100%;
+        box-shadow: -2rem 4rem 4rem rgba(0, 0, 0, 0.26);
+    }
+
+    .nav__menu li a {
+        display: block;
+        background: var(--color-white);
+        padding: 0.85rem 2.5rem;
+    }
+
+    .nav__toggle-btn {
+        display: inline-block;
+        background: transparent;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .posts__container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .footer__categories {
+        flex-direction: column;
+    }
+
+    .post-details {
+        width: 100%;
+        background: transparent;
+        padding: 0;
+    }
+
+    .post-details h1 {
+        margin-top: 1rem;
+    }
+
+    .register, .login, .create-post {
+        width: 100%;
+    }
+
+    .form.profile__form {
+        margin-top: 2.5rem;
+        width: 100%;
+    }
+
+    .authors__container {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .dashboard__post {
+        margin-bottom: 1rem;
+        flex-direction: column;
+    }
+
+    .dashboard__post-info {
+        gap: 1.5rem;
+    }
+
+    .dashboard__post-thumbnail {
+        width: 5rem;
+    }
+ }
