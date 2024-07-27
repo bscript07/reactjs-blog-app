@@ -56,16 +56,27 @@ const loginUser = async (req, res, next) => {
             return next(new HttpError(`Invalid creadentials.`, 422));
         }
 
-        const{_id: id, name} = user;
+        const {_id: id, name} = user;
         const token = jwt.sign({id, name}, process.env.JWT_SECRET, {expiresIn: '1d'})
 
+        res.status(200).json({token, id, name})
     } catch (error) {
         return next(new HttpError(`Login failed. Please check your creadentials.`, 422));
     }
 }
 
 const getUser = async (req, res, next) => {
-    res.json('User profile')
+   try {
+    const {id} = req.params;
+    const user = await User.findById(id).select('-password');
+    if (!user) {
+        return next(new HttpError(`User not found.`, 404));
+    }
+
+    res.status(200).json(user)
+   } catch (error) {
+    return next(new HttpError(error));
+   }
 }
 
 const changeAvatar = async (req, res, next) => {
@@ -77,7 +88,12 @@ const editUser = async (req, res, next) => {
 }
 
 const getAuthors = async (req, res, next) => {
-    res.json('Get all users/authors')
+    try {
+        const authors = await User.find().select('-password')
+        res.json(authors)
+    } catch (error) {
+        return next(new HttpError(error));
+    }
 }
 
 module.exports = { registerUser, loginUser, getUser, changeAvatar, editUser, getAuthors }
