@@ -80,7 +80,11 @@ const getUser = async (req, res, next) => {
 }
 
 const changeAvatar = async (req, res, next) => {
-    res.json('Change user avatar')
+    try {
+        res.json(req.files)
+    } catch (error) {
+        return next(new HttpError(error));
+    }
 }
 
 const editUser = async (req, res, next) => {
