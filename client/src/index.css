@@ -533,6 +533,25 @@ input, select, textarea {
     gap: 1rem;
 }
 
+/*SPINNER*/
+
+.spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    place-items: center;
+    background: var(--color-bg);
+}
+
+.spinner__image {
+    width: 4.5rem;
+    aspect-ratio: 1/1;
+
+}
+
 /*CREATE*/
 
 .create-btn {

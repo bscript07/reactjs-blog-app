@@ -1,4 +1,4 @@
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { UserContext } from "../context/userContext";
@@ -11,6 +11,15 @@ const Login = () => {
 
   const [error, setError] = useState('')
   const navigate = useNavigate();
+
+  // const {currentUser} = useContext(UserContext)
+  // const token = currentUser?.token
+
+  // useEffect(() => {
+  //   if (!token) {
+  //     navigate('/login')
+  //   }
+  // }, [])
 
   const {setCurrentUser} = useContext(UserContext)
 
