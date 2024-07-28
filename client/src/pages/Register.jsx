@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 
 const Register = () => {
@@ -24,9 +24,17 @@ const Register = () => {
     e.preventDefault();
     setError('')
     try {
-      
-    } catch (error) {
-      setError(error.message)
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/register`, userData)
+      const newUser = await response.data;
+
+      console.log(newUser);
+      if (!newUser) {
+        setError("Couldn't register. Please try again.")
+      }
+
+      navigate('/')
+    } catch (err) {
+      setError(err.response.data.message)
     }
   }
 
