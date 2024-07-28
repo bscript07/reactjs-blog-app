@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -9,18 +10,32 @@ const Register = () => {
     confirmPassword: ''
   });
 
+  const [error, setError] = useState('')
+  const navigate = useNavigate()
+
+
   const changeInputHandler = (e) => {
     setUserData(prevState => {
       return {...prevState, [e.target.name]: e.target.value}
     });
   }
 
+  const registerUser = async (e) => {
+    e.preventDefault();
+    setError('')
+    try {
+      
+    } catch (error) {
+      setError(error.message)
+    }
+  }
+
   return (
     <section className="register">
       <div className="container">
         <h2 className="sign-up">Sign Up</h2>
-        <form className="form register__form">
-          <p className="form__error-message">This is an error message</p>
+        <form className="form register__form" onSubmit={registerUser}>
+          {error && <p className="form__error-message">{error}</p>}
           <input type="text" placeholder="Full name" name="name" value={userData.name} onChange={changeInputHandler} />
           <input type="text" placeholder="Email" name="email" value={userData.email} onChange={changeInputHandler} />
           <input type="password" placeholder="Password" name="password" value={userData.password} onChange={changeInputHandler} />
