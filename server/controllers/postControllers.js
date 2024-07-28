@@ -22,15 +22,9 @@ const createPost = async (req, res, next) => {
 
     let fileName = thumbnail.name;
     let splittedFileName = fileName.split(".");
-    let newFileName =
-      splittedFileName[0] +
-      uuid() +
-      "." +
-      splittedFileName[splittedFileName.length - 1];
+    let newFileName = splittedFileName[0] + uuid() + "." + splittedFileName[splittedFileName.length - 1];
 
-    thumbnail.mv(
-      path.join(__dirname, "..", "/uploads", newFileName),
-      async (err) => {
+    thumbnail.mv(path.join(__dirname, "..", "/uploads", newFileName), async (err) => {
         if (err) {
           return next(new HttpError(err));
         } else {
@@ -121,21 +115,14 @@ const editPost = async (req, res, next) => {
     const oldPost = await Post.findById(postId);
     if (req.user.id == oldPost.creator) {
       if (!req.files) {
-        updatedPost = await Post.findByIdAndUpdate(
-          postId,
-          { title, category, description },
-          { new: true }
-        );
+        updatedPost = await Post.findByIdAndUpdate(postId, { title, category, description }, { new: true });
       } else {
         // delete old thumbnail from db
-        fs.unlink(
-          path.join(__dirname, "..", "uploads", oldPost.thumbnail),
-          async (err) => {
+        fs.unlink(path.join(__dirname, "..", "uploads", oldPost.thumbnail), async (err) => {
             if (err) {
               return next(new HttpError(err));
             }
-          }
-        );
+          });
 
         // upload new thumbnail
         const { thumbnail } = req.files;
@@ -147,25 +134,14 @@ const editPost = async (req, res, next) => {
 
         fileName = thumbnail.name;
         let splittedFilename = fileName.split(".");
-        newFileName =
-          splittedFilename[0] +
-          uuid() +
-          "." +
-          splittedFilename[splittedFilename.length - 1];
-        thumbnail.mv(
-          path.join(__dirname, "..", "uploads", newFileName),
-          async (err) => {
+        newFileName = splittedFilename[0] + uuid() + "." + splittedFilename[splittedFilename.length - 1];
+        thumbnail.mv(path.join(__dirname, "..", "uploads", newFileName), async (err) => {
             if (err) {
               return next(new HttpError(err));
             }
-          }
-        );
+          });
 
-        updatedPost = await Post.findByIdAndUpdate(
-          postId,
-          { title, category, description, thumbnail: newFileName },
-          { new: true }
-        );
+        updatedPost = await Post.findByIdAndUpdate(postId, { title, category, description, thumbnail: newFileName }, { new: true });
       }
     }
     if (!updatedPost) {
@@ -189,9 +165,7 @@ const deletePost = async (req, res, next) => {
     const fileName = post?.thumbnail;
     if (req.user.id == post.creator) {
       // delete thumbnail from uploads folder
-      fs.unlink(
-        path.join(__dirname, "..", "uploads", fileName),
-        async (err) => {
+      fs.unlink(path.join(__dirname, "..", "uploads", fileName), async (err) => {
           if (err) {
             return next(new HttpError(err));
           } else {
