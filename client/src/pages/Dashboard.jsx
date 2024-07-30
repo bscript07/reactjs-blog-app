@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 import axios from "axios";
 import Spinner from '../components/Spinner';
+import DeletePost from "./DeletePost";
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
@@ -52,9 +53,9 @@ const Dashboard = () => {
               <h5>{post.title}</h5>
             </div>
             <div className="dashboard__post-actions">
-              <Link to={`/posts/${post.id}`} className="btn sm">View</Link>
-              <Link to={`/posts/${post.id}/edit`} className="btn sm primary">Edit</Link>
-              <Link to={`/posts/${post.id}/delete`} className="btn sm danger">Delete</Link>
+              <Link to={`/posts/${post._id}`} className="btn sm">View</Link>
+              <Link to={`/posts/${post._id}/edit`} className="btn sm primary">Edit</Link>
+              <DeletePost postId={post._id} />
             </div>
           </article>
         })}

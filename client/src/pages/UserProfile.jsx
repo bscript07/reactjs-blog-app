@@ -1,19 +1,46 @@
-import { Link } from "react-router-dom"
-import Avatar from '../images/avatar15.jpg'
+import { Link, useNavigate } from "react-router-dom"
 import { FaEdit } from 'react-icons/fa'
 import { FaCheck } from "react-icons/fa"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../context/userContext"
+import axios from "axios"
 
 const UserProfile = () => {
-  const [avatar, setAvatar] = useState(Avatar);
+  const [avatar, setAvatar] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
+  const [isAvatarTouched, setIsAvatarTouched] = useState(false);
+
+  const navigate = useNavigate()
+
   const {currentUser} = useContext(UserContext)
+  const token = currentUser?.token;
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+    }
+  }, [])
+
+  const changeAvatarHandler = async () => {
+    setIsAvatarTouched(false);
+
+    try {
+      const postData = new FormData();
+      postData.set('avatar', avatar);
+
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/change-avatar`, postData, {withCredentials: true, headers: {Authorization: `Bearer: ${token}`}});
+      setAvatar(response?.data.avatar);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <section className="profile">
       <div className="container profile__container">
@@ -22,16 +49,16 @@ const UserProfile = () => {
       <div className="profile__details">
         <div className="avatar__wrapper">
           <div className="profile__avatar">
-            <img src={avatar} alt="" />
+            <img src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${avatar}`} alt="" />
           </div>
           {/*Form to update avatar*/}
           <form className="avatar__form">
             <input type="file" name="avatar" id="avatar" onChange={e => setAvatar(e.target.files[0])} accept="png, jpg, jpeg"/>
-            <label htmlFor="avatar"><FaEdit /></label>
+            <label htmlFor="avatar" onClick={() => setIsAvatarTouched(true)}><FaEdit /></label>
           </form>
-          <button className="profile__avatar-btn"><FaCheck /></button>
+          {isAvatarTouched &&  <button className="profile__avatar-btn" onClick={changeAvatarHandler}><FaCheck /></button>}
         </div>
-        <h1>Ernest Lachiever</h1>
+        <h1>{currentUser.name}</h1>
 
         {/*Form for updating users*/}
 

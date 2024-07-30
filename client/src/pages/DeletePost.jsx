@@ -1,12 +1,14 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../context/userContext"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 import axios from "axios"
+import Spinner from "../components/Spinner"
 
 const DeletePost = ({postId: id}) => {
 
   const {currentUser} = useContext(UserContext)
   const token = currentUser?.token
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -18,6 +20,7 @@ const DeletePost = ({postId: id}) => {
   }, [])
 
   const removePost = async () => {
+    setIsLoading(true);
     try {
       const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}/posts/${id}`, {withCredentials: true, headers: {Authorization: `Bearer ${token}`}});
 
@@ -29,10 +32,16 @@ const DeletePost = ({postId: id}) => {
         }
       }
 
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
   }
+
+  if (isLoading) {
+    return <Spinner />
+  }
+
   return (
     <Link className="btn sm danger" onClick={() => removePost(id)}>Delete</Link>
   )
