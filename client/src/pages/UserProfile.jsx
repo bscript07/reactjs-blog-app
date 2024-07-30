@@ -2,7 +2,8 @@ import { Link } from "react-router-dom"
 import Avatar from '../images/avatar15.jpg'
 import { FaEdit } from 'react-icons/fa'
 import { FaCheck } from "react-icons/fa"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { UserContext } from "../context/userContext"
 
 const UserProfile = () => {
   const [avatar, setAvatar] = useState(Avatar);
@@ -11,10 +12,12 @@ const UserProfile = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
+
+  const {currentUser} = useContext(UserContext)
   return (
     <section className="profile">
       <div className="container profile__container">
-        <Link to={`/myposts/hellotochange`} className="btn">My posts</Link>
+        <Link to={`/myposts/${currentUser.id}`} className="btn">My posts</Link>
       
       <div className="profile__details">
         <div className="avatar__wrapper">
