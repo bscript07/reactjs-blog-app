@@ -39,7 +39,7 @@ const CreatePost = () => {
     'link', 'image'
   ];
 
-  const POST_CATEGORIES = ['Uncategorized', 'Art', 'Business', 'Cryptocurrency', 'Finance', 'Health & Wellness', 'Food & Cooking', 'Investment', 'Weather'];
+  const POST_CATEGORIES = ['Uncategorized', 'Art', 'Business', 'Cryptocurrency', 'Finance', 'Health', 'Food', 'Investment', 'Weather'];
 
   const createPost = async (e) => {
     e.preventDefault();
