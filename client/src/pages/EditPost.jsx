@@ -37,7 +37,7 @@ const EditPost = () => {
     'link', 'image'
   ];
 
-  const POST_CATEGORIES = ['Agriculture', 'Business', 'Education', 'Entertainment', 'Art', 'Investment', 'Uncategorized', 'Weather'];
+  const POST_CATEGORIES = ['Uncategorized', 'Art', 'Business', 'Cryptocurrency', 'Finance', 'Health & Wellness', 'Food & Cooking', 'Investment', 'Weather'];
 
   return (
     <section className="create-post">

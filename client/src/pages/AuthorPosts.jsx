@@ -32,7 +32,7 @@ const AuthorPosts = () => {
   return (
       <section className='posts'>
            {posts.length > 0 ? <div className='container posts__container'>
-              {posts.map(({ _id: id, thumbnail, category, title, description, creator, createdAt }) =>
+              {posts.map(({ _id: id, thumbnail, category, title, description, avatar, creator, createdAt }) =>
                   <PostItem key={id}
                       postID={id}
                       thumbnail={thumbnail}
@@ -41,6 +41,7 @@ const AuthorPosts = () => {
                       description={description}
                       authorID={creator}
                       createdAt={createdAt}
+                      avatar={avatar}
                   />)}
           </div> : <h2 className='center'>No posts founds</h2>}
       </section>

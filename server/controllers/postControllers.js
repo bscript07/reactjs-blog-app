@@ -9,13 +9,13 @@ const createPost = async (req, res, next) => {
   try {
     let { title, category, description } = req.body;
 
-    if (!title || !category || !description || !req.files) {
-      return next(new HttpError("Missing required fields", 422));
+    if (!title || !category || !description || !req.files || !req.files.thumbnail) {
+      return next(new HttpError("Missing required fields or file", 422));
     }
 
     const { thumbnail } = req.files;
     
-    // check the file size
+    // Check the file size
     if (thumbnail.size > 2000000) {
       return next(new HttpError("Thumbnail file size exceeds 2MB", 422));
     }
@@ -23,37 +23,43 @@ const createPost = async (req, res, next) => {
     let fileName = thumbnail.name;
     let splittedFileName = fileName.split(".");
     let newFileName = splittedFileName[0] + uuid() + "." + splittedFileName[splittedFileName.length - 1];
+    
+    // Log the path to verify
+    const filePath = path.join(__dirname, "..", "uploads", newFileName);
+    console.log("Saving file to:", filePath);
 
-    thumbnail.mv(path.join(__dirname, "..", "/uploads", newFileName), async (err) => {
-        if (err) {
-          return next(new HttpError(err));
-        } else {
-          const newPost = await Post.create({
-            title,
-            category,
-            description,
-            thumbnail: newFileName,
-            creator: req.user.id,
-          });
-
-          if (!newPost) {
-            return next(new HttpError("Failed to create post", 422));
-          }
-
-          // find user and increase post count
-          const currentUser = await User.findById(req.user.id);
-          const userPostCount = currentUser.posts + 1;
-
-          await User.findByIdAndUpdate(req.user.id, { posts: userPostCount });
-
-          res.status(201).json(newPost);
-        }
+    thumbnail.mv(filePath, async (err) => {
+      if (err) {
+        console.error("Error moving file:", err);
+        return next(new HttpError("Error moving file", 500));
       }
-    );
+
+      const newPost = await Post.create({
+        title,
+        category,
+        description,
+        thumbnail: newFileName,
+        creator: req.user.id,
+      });
+
+      if (!newPost) {
+        return next(new HttpError("Failed to create post", 422));
+      }
+
+      // Find user and increase post count
+      const currentUser = await User.findById(req.user.id);
+      const userPostCount = currentUser.posts + 1;
+
+      await User.findByIdAndUpdate(req.user.id, { posts: userPostCount });
+
+      res.status(201).json(newPost);
+    });
   } catch (error) {
-    return next(new HttpError(error));
+    console.error("Error creating post:", error);
+    return next(new HttpError("Internal server error", 500));
   }
 };
+
 
 const getPosts = async (req, res, next) => {
   try {
