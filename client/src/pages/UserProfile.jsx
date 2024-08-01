@@ -12,6 +12,7 @@ const UserProfile = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [error, setError] = useState('');
 
   const [isAvatarTouched, setIsAvatarTouched] = useState(false);
 
@@ -26,6 +27,19 @@ const UserProfile = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const getUser = async () => {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/${currentUser.id}`, {withCredentials: true, headers: {Authorization: `Bearer ${token}`}});
+
+      const {name, email, avatar} = response.data;
+      setName(name);
+      setEmail(email);
+      setAvatar(avatar);
+    }
+
+    getUser();
+  }, [])
+
   const changeAvatarHandler = async () => {
     setIsAvatarTouched(false);
 
@@ -38,6 +52,28 @@ const UserProfile = () => {
 
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  const updateUserDetails = async (e) => {
+    e.preventDefault();
+
+    try {
+    const userData = new FormData();
+    userData.set('name', name);
+    userData.set('email', email);
+    userData.set('currentPassword', currentPassword);
+    userData.set('newPassword', newPassword);
+    userData.set('confirmNewPassword', confirmNewPassword);
+
+    const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}/users/edit-user`, userData, {withCredentials: true, headers: {Authorization: `Bearer ${token}`}})
+
+    if (response.status == 200) {
+      navigate(`/logout`);
+    }
+
+    } catch (error) {
+      setError(error.response.data.message)
     }
   }
 
@@ -62,8 +98,8 @@ const UserProfile = () => {
 
         {/*Form for updating users*/}
 
-        <form className="form profile__form">
-          <p className="form__error-message">This is an error message</p>
+        <form className="form profile__form" onSubmit={updateUserDetails}>
+          {error && <p className="form__error-message">{error}</p>}
             <input type="text" placeholder="Full name" value={name} onChange={e => setName(e.target.value)}/>
             <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}/>
             <input type="password" placeholder="Current password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)}/>
