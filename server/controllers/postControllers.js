@@ -1,9 +1,9 @@
 const Post = require("../models/postModel");
 const User = require("../models/userModel");
-const fs = require("fs");
 const path = require("path");
-const { v4: uuid } = require("uuid");
+const { v4: uuid } = require('uuid');
 const HttpError = require("../models/errorModel");
+const fs = require("fs");
 
 const createPost = async (req, res, next) => {
   try {
@@ -20,12 +20,17 @@ const createPost = async (req, res, next) => {
       return next(new HttpError("Thumbnail file size exceeds 2MB", 422));
     }
 
-    let fileName = thumbnail.name;
-    let splittedFileName = fileName.split(".");
-    let newFileName = splittedFileName[0] + uuid() + "." + splittedFileName[splittedFileName.length - 1];
-    
+    const fileExtension = path.extname(thumbnail.name);
+    const newFileName = `${uuid()}${fileExtension}`;
+
+    // Ensure uploads directory exists
+    const uploadsDir = path.join(__dirname, '..', 'uploads');
+    if (!fs.existsSync(uploadsDir)) {
+      fs.mkdirSync(uploadsDir);
+    }
+
     // Log the path to verify
-    const filePath = path.join(__dirname, "..", "uploads", newFileName);
+    const filePath = path.join(uploadsDir, newFileName);
     console.log("Saving file to:", filePath);
 
     thumbnail.mv(filePath, async (err) => {
@@ -48,9 +53,12 @@ const createPost = async (req, res, next) => {
 
       // Find user and increase post count
       const currentUser = await User.findById(req.user.id);
-      const userPostCount = currentUser.posts + 1;
+      if (!currentUser) {
+        return next(new HttpError("User not found", 404));
+      }
 
-      await User.findByIdAndUpdate(req.user.id, { posts: userPostCount });
+      currentUser.posts += 1;
+      await currentUser.save();
 
       res.status(201).json(newPost);
     });
@@ -59,6 +67,9 @@ const createPost = async (req, res, next) => {
     return next(new HttpError("Internal server error", 500));
   }
 };
+
+module.exports = createPost;
+
 
 
 const getPosts = async (req, res, next) => {

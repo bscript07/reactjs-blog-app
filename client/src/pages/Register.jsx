@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios'
+import axios from 'axios';
+import { UserContext } from "../context/userContext";
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -10,32 +11,39 @@ const Register = () => {
     confirmPassword: ''
   });
 
-  const [error, setError] = useState('')
-  const navigate = useNavigate()
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const { currentUser, setCurrentUser } = useContext(UserContext);
 
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/');
+    }
+  }, [currentUser, navigate]);
 
   const changeInputHandler = (e) => {
     setUserData(prevState => {
-      return {...prevState, [e.target.name]: e.target.value}
+      return { ...prevState, [e.target.name]: e.target.value };
     });
-  }
+  };
 
   const registerUser = async (e) => {
     e.preventDefault();
-    setError('')
+    setError('');
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/register`, userData)
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/register`, userData);
       const newUser = await response.data;
 
       if (!newUser) {
-        setError("Couldn't register. Please try again.")
+        setError('Failed to register user. Please try again.');
+      } else {
+        setCurrentUser(newUser);
+        navigate('/');
       }
-
-      navigate('/')
     } catch (err) {
-      setError(err.response.data.message)
+      setError(err.response.data.message);
     }
-  }
+  };
 
   return (
     <section className="register">
@@ -49,13 +57,14 @@ const Register = () => {
           <input type="password" placeholder="Confirm password" name="confirmPassword" value={userData.confirmPassword} onChange={changeInputHandler} />
 
           <div className="register-btn">
-          <button type="submit" className="btn primary">Register</button>
+            <button type="submit" className="btn primary">Register</button>
           </div>
         </form>
         <small className="sign-in-content">Already have an account? <Link to='/login'>Sign In</Link></small>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
+

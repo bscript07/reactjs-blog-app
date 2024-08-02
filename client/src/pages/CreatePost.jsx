@@ -13,24 +13,24 @@ const CreatePost = () => {
   const [thumbnail, setThumbnail] = useState('');
   const navigate = useNavigate();
 
-  const {currentUser} = useContext(UserContext)
-  const token = currentUser?.token
+  const { currentUser } = useContext(UserContext);
+  const token = currentUser?.token;
 
   useEffect(() => {
     if (!token) {
-      navigate('/login')
+      navigate('/login');
     }
-  }, [])
+  }, [token, navigate]);
 
   const modules = {
     toolbar: [
-      [{ 'header': [1, 2, 3, 4, 5, 6, false]}],
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{'list':'ordered'}, {'list':'bullet'}, {'indent':'-1'}, {'indent':'+1'}],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
       ['link', 'image'],
       ['clean']
     ],
-  }
+  };
 
   const formats = [
     'header',
@@ -51,16 +51,15 @@ const CreatePost = () => {
     postData.set('thumbnail', thumbnail);
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts`, postData, {withCredentials: true, headers: {Authorization: `Bearer ${token}`}})
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts`, postData, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } });
 
-      if (response.status == 201) {
+      if (response.status === 201) {
         return navigate('/');
       }
     } catch (err) {
       setError(err.response.data.message);
     }
-
-  }
+  };
 
   return (
     <section className="create-post">
@@ -70,19 +69,18 @@ const CreatePost = () => {
         <form className="form create-post__form" onSubmit={createPost}>
           <input type="text" placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} autoFocus />
           <select name="category" value={category} onChange={e => setCategory(e.target.value)}>
-            {
-              POST_CATEGORIES.map(cat => <option key={cat}>{cat}</option>)
-            }
+            {POST_CATEGORIES.map(cat => <option key={cat}>{cat}</option>)}
           </select>
-            <ReactQuill modules={modules} formats={formats} value={description} onChange={setDescription} />
-            <input type="file" onChange={e => setThumbnail(e.target.files[0])} accept="png, jpg, jpeg" />
-            <div className="create-btn">
+          <ReactQuill modules={modules} formats={formats} value={description} onChange={setDescription} />
+          <input type="file" onChange={e => setThumbnail(e.target.files[0])} accept="png, jpg, jpeg" />
+          <div className="create-btn">
             <button type="submit" className="btn primary">Create</button>
-            </div>
+          </div>
         </form>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default CreatePost
+export default CreatePost;
+

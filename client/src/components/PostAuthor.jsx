@@ -25,7 +25,7 @@ const PostAuthor = ({ authorID, createdAt }) => {
     };
 
     getAuthor();
-  }, []);
+  }, [authorID]);
 
   return (
     <Link to={`/posts/users/${authorID}`} className='post__author'>

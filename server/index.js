@@ -15,7 +15,7 @@ app.use(express.json({extended: true}));
 app.use(express.urlencoded({ extended: true}));
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(upload())
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 
 app.use('/api/users', userRoutes);
