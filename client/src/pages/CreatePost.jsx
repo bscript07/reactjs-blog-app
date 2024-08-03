@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import { UserContext } from "../context/userContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import 'react-quill/dist/quill.snow.css';
 
 const CreatePost = () => {
   const [title, setTitle] = useState('');

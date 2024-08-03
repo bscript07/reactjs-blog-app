@@ -10,7 +10,7 @@ const registerUser = async (req, res, next) => {
     try {
         const { name, email, password, confirmPassword } = req.body;
 
-        if (!name || !email || !password) {
+        if (!name || !email || !password || !confirmPassword) {
             return next(new HttpError('Fill in all fields.', 422));
         }
 
@@ -32,13 +32,17 @@ const registerUser = async (req, res, next) => {
         const hashedPassword = await bcrypt.hash(password, salt);
         const newUser = await User.create({ name, email: newEmail, password: hashedPassword });
 
-        res.status(201).json(`New user ${newUser.email} registered successfully.`);
+        const { _id: id } = newUser;
+        const token = jwt.sign({id, name}, process.env.JWT_SECRET, {expiresIn: '1d'})
+
+        res.status(201).json({id, token, email: newEmail})
+
+        // res.status(201).json(`New user ${newUser.email} registered successfully.`);
 
     } catch (error) {
         return next(new HttpError('User registration failed.', 422));
     }
 };
-
 
 const loginUser = async (req, res, next) => {
     try {
