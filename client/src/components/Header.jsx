@@ -8,7 +8,6 @@ import { UserContext } from '../context/userContext';
 const Header = () => {
   const [isNavShowing, setIsNavShowing] = useState(window.innerWidth > 800 ? true : false);
   const { currentUser } = useContext(UserContext);
-  console.log(currentUser);
   
   const closeNavHandler = () => {
     if (window.innerWidth < 800) {
