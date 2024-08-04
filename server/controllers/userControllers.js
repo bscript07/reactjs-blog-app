@@ -35,9 +35,7 @@ const registerUser = async (req, res, next) => {
         const { _id: id } = newUser;
         const token = jwt.sign({id, name}, process.env.JWT_SECRET, {expiresIn: '1d'})
 
-        res.status(201).json({id, token, email: newEmail})
-
-        // res.status(201).json(`New user ${newUser.email} registered successfully.`);
+        res.status(201).json({id, token, name, email: newEmail})
 
     } catch (error) {
         return next(new HttpError('User registration failed.', 422));
