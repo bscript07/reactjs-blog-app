@@ -39,7 +39,7 @@ const UserProfile = () => {
         setEmail(email);
         setAvatar(avatar);
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     };
 
