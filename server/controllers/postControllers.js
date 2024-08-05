@@ -68,10 +68,6 @@ const createPost = async (req, res, next) => {
   }
 };
 
-module.exports = createPost;
-
-
-
 const getPosts = async (req, res, next) => {
   try {
     const posts = await Post.find().sort({ updatedAt: -1 });
