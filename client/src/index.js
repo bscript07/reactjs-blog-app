@@ -20,6 +20,11 @@ import Logout from './pages/Logout';
 import AuthorPosts from './pages/AuthorPosts';
 import UserProvider from './context/userContext';
 
+// Redirect to production URL if running locally
+if (window.location.hostname === 'localhost') {
+  window.location.href = 'https://reactjs-blog-app-client.onrender.com';
+}
+
 const router = createBrowserRouter([
   {
     path: '/',
