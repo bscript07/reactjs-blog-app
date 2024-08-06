@@ -13,7 +13,7 @@ const app = express();
 
 app.use(express.json({extended: true}));
 app.use(express.urlencoded({ extended: true}));
-app.use(cors({ credentials: true, origin: 'https://reactjs-blog-app-client.onrender.com' }));
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(upload())
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
@@ -23,6 +23,8 @@ app.use('/api/posts', postRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-connect(process.env.MONGO_URI)
+connect(process.env.MONGO_URI, {
+  useUnifiedTopology: true,
+})
 .then(app.listen(process.env.PORT || 5000, () => console.log(`Server started on port ${process.env.PORT}`)))
 .catch(error => console.log(error))
