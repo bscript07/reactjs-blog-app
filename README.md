@@ -53,15 +53,10 @@ Here is a list of some registered users on the platform:
 
 | **Name**    | **Email**        | **Posts** | **Avatar**          |
 |-------------|------------------|-----------|---------------------|
-<<<<<<< HEAD
-| John Doe    | john@example.com | 5         | ![John's Avatar](url-to-avatar)   |
-| Jane Smith  | jane@example.com | 3         | ![Jane's Avatar](url-to-avatar)   |
-| Alex Johnson| alex@example.com | 7         | ![Alex's Avatar](url-to-avatar)   |
-=======
+
 | Vili Petrova | vili@gmail.com  |   1       | ![Vili's Avatar](avatar54962cc33-23b6-4ab2-88e7-4c34402f7488.jpg)    |
 | Nikol Petrova| niki@gmail.com  |   3       | ![Nikol's Avatar](avatar721bc3282-85cd-4c43-850c-edf9b37f5595.jpg)   |
 | Alex Petrov  | alex@gmail.com  |   1       | ![Alex's Avatar](avatar11891724a4-6805-46f6-ae7e-359e6ccd1099.jpg)   |
->>>>>>> f6c6428ecf104da02cdc1c0aac2b6dec5c358092
 
 ### User Roles
 
@@ -73,11 +68,4 @@ Here is a list of some registered users on the platform:
 
 For further assistance or feedback, please reach out to our support team at [brayan_markov@yahoo.com](mailto:brayan_markov@yahoo.com).
 
-<<<<<<< HEAD
----
-
 Thank you for using the MERN Blog Application! We hope you enjoy the experience and find it useful. If you have any suggestions or need help, don’t hesitate to get in touch!
-=======
-Thank you for using the MERN Blog Application! We hope you enjoy the experience and find it useful. If you have any suggestions or need help, don’t hesitate to get in touch!
-
->>>>>>> f6c6428ecf104da02cdc1c0aac2b6dec5c358092
