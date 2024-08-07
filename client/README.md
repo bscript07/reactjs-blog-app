@@ -1,7 +1,5 @@
 # Getting Started with Create React App
 
-# MERN Blog Application
-
 ## Overview
 
 Welcome to the MERN Blog Application! This is a full-stack application that allows users to create, edit, and manage posts. Built with React on the frontend and integrated with a backend server, this project demonstrates modern web development practices.
