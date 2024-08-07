@@ -67,8 +67,4 @@ Here is a list of some registered users on the platform:
 
 ![mern](https://github.com/user-attachments/assets/ba83e26e-5f7e-43a9-91a9-510d5653fa43)
 
-## Contact Us
-
-For further assistance or feedback, please reach out to our support team at [brayan_markov@yahoo.com](mailto:brayan_markov@yahoo.com).
-
 Thank you for using the MERN Blog Application! We hope you enjoy the experience and find it useful. If you have any suggestions or need help, don’t hesitate to get in touch!
