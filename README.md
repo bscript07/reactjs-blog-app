@@ -63,7 +63,7 @@ Here is a list of some registered users on the platform:
 - **Author**: Can create, edit, and delete their own posts.
 - **Reader**: Can view posts and interact with content.
 
-## Tech stack:
+### Tech stack:
 
 ## Contact Us
 
