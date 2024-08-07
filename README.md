@@ -65,6 +65,9 @@ Here is a list of some registered users on the platform:
 
 ## Tech stack:
 
+![merntechstack](https://github.com/user-attachments/assets/d86b85cc-5262-456c-99a0-0cf85f99cd86)
+
+
 ## Contact Us
 
 For further assistance or feedback, please reach out to our support team at [brayan_markov@yahoo.com](mailto:brayan_markov@yahoo.com).
