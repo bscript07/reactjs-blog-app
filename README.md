@@ -65,9 +65,7 @@ Here is a list of some registered users on the platform:
 
 ## Tech stack:
 
-![merntechstack](https://github.com/user-attachments/assets/d86b85cc-5262-456c-99a0-0cf85f99cd86)
-
-Error handling and data validation ✔️
+![mern](https://github.com/user-attachments/assets/ba83e26e-5f7e-43a9-91a9-510d5653fa43)
 
 ## Contact Us
 
