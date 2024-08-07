@@ -63,6 +63,8 @@ Here is a list of some registered users on the platform:
 - **Author**: Can create, edit, and delete their own posts.
 - **Reader**: Can view posts and interact with content.
 
+## Tech stack:
+
 ## Contact Us
 
 For further assistance or feedback, please reach out to our support team at [brayan_markov@yahoo.com](mailto:brayan_markov@yahoo.com).
