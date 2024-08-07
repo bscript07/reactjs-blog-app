@@ -63,18 +63,9 @@ Here is a list of some registered users on the platform:
 - **Author**: Can create, edit, and delete their own posts.
 - **Reader**: Can view posts and interact with content.
 
-## Troubleshooting
-
-- **Forgot Password**: Use the "Forgot Password" link on the login page to reset your password.
-- **Account Issues**: Contact support if you encounter any issues with your account.
-
 ## Contact Us
 
 For further assistance or feedback, please reach out to our support team at [support@example.com](mailto:support@example.com).
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
