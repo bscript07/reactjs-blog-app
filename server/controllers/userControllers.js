@@ -61,7 +61,7 @@ const loginUser = async (req, res, next) => {
             return next(new HttpError(`Invalid creadentials.`, 422));
         }
 
-        const {_id: id, name} = user;
+        const {_id: id, name } = user;
         const token = jwt.sign({id, name}, process.env.JWT_SECRET, {expiresIn: '1d'})
 
         res.status(200).json({token, id, name})
@@ -94,6 +94,7 @@ const changeAvatar = async (req, res, next) => {
 
         // find user from database
         const user = await User.findById(req.user.id)
+        
         // delete old avatar if exists
         if (user.avatar) {
             fs.unlink(path.join(__dirname, '..', 'uploads', user.avatar), (err) => {

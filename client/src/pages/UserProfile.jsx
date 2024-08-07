@@ -47,6 +47,7 @@ const UserProfile = () => {
   }, [currentUser?.id, token]);
 
   const changeAvatarHandler = async () => {
+
     setIsAvatarTouched(false);
 
     try {
