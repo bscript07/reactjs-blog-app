@@ -53,9 +53,9 @@ Here is a list of some registered users on the platform:
 
 | **Name**    | **Email**        | **Posts** |
 |-------------|------------------|-----------|
-| John Doe    | john@example.com | 5         |
-| Jane Smith  | jane@example.com | 3         | 
-| Alex Johnson| alex@example.com | 7         | 
+| Vili Petrova| vili@gmail.com | 1 |
+|Nikol Petrova| niki@gmail.com | 3 | 
+| Alex Petrov | alex@gmail.com | 1 | 
 
 ### User Roles
 
