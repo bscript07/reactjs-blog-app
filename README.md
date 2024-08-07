@@ -51,8 +51,8 @@ Welcome to the MERN Blog Application! This guide will help you understand how to
 
 Here is a list of some registered users on the platform:
 
-| **Name**    | **Email**        | **Posts** | **Avatar**          |
-|-------------|------------------|-----------|---------------------|
+| **Name**    | **Email**        | **Posts** |
+|-------------|------------------|-----------|
 | John Doe    | john@example.com | 5         |
 | Jane Smith  | jane@example.com | 3         | 
 | Alex Johnson| alex@example.com | 7         | 
