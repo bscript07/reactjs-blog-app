@@ -1,5 +1,7 @@
 # ReactJS - June 2024
 
+---
+
 ## Welcome to the MERN Blog Application
 
 Welcome to the MERN Blog Application! This guide will help you understand how to use the features of the app, manage your account, and get the most out of the platform.
@@ -53,10 +55,9 @@ Here is a list of some registered users on the platform:
 
 | **Name**    | **Email**        | **Posts** | **Avatar**          |
 |-------------|------------------|-----------|---------------------|
-
-| Vili Petrova | vili@gmail.com  |   1       | ![Vili's Avatar](avatar54962cc33-23b6-4ab2-88e7-4c34402f7488.jpg)    |
-| Nikol Petrova| niki@gmail.com  |   3       | ![Nikol's Avatar](avatar721bc3282-85cd-4c43-850c-edf9b37f5595.jpg)   |
-| Alex Petrov  | alex@gmail.com  |   1       | ![Alex's Avatar](avatar11891724a4-6805-46f6-ae7e-359e6ccd1099.jpg)   |
+| Vili Petrova| vili@gmail.com | 1  | ![Vili's Avatar](url-to-avatar)   |
+|Nikol Petrova| niki@gmail.com | 3  | ![Nikol's Avatar](url-to-avatar)   |
+| Alex Petrov |alex@example.com| 1  | ![Alex's Avatar](url-to-avatar)   |
 
 ### User Roles
 
