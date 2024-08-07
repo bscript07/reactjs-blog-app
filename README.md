@@ -65,7 +65,7 @@ Here is a list of some registered users on the platform:
 
 ## Contact Us
 
-For further assistance or feedback, please reach out to our support team at [support@example.com](mailto:brayan_markov@yahoo.com).
+For further assistance or feedback, please reach out to our support team at [brayan_markov@yahoo.com](mailto:brayan_markov@yahoo.com).
 
 ---
 
