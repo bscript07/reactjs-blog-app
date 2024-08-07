@@ -67,7 +67,5 @@ Here is a list of some registered users on the platform:
 
 For further assistance or feedback, please reach out to our support team at [brayan_markov@yahoo.com](mailto:brayan_markov@yahoo.com).
 
----
-
 Thank you for using the MERN Blog Application! We hope you enjoy the experience and find it useful. If you have any suggestions or need help, don’t hesitate to get in touch!
 
