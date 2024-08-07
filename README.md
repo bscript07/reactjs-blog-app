@@ -51,12 +51,11 @@ Welcome to the MERN Blog Application! This guide will help you understand how to
 
 Here is a list of some registered users on the platform:
 
-| **Name**    | **Email**        | **Posts** |
-|-------------|------------------|-----------|
-
-| Vili Petrova| vili@gmail.com    | 1 |
-|Nikol Petrova| niki@gmail.com    | 3 |
-| Alex Petrov |alex@example.com   | 1 |
+| **Name**    | **Email**        | **Posts** | **Avatar**          |
+|-------------|------------------|-----------|---------------------|
+| John Doe    | john@example.com | 5         |
+| Jane Smith  | jane@example.com | 3         | 
+| Alex Johnson| alex@example.com | 7         | 
 
 ### User Roles
 
