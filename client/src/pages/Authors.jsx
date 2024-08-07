@@ -22,7 +22,7 @@ const Authors = () => {
     }
 
     getAuthors()
-  }, [])
+  }, []);
 
   if (isLoading) {
     return <Spinner />
