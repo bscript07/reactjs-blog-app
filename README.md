@@ -67,6 +67,8 @@ Here is a list of some registered users on the platform:
 
 ![merntechstack](https://github.com/user-attachments/assets/d86b85cc-5262-456c-99a0-0cf85f99cd86)
 
+Error handling and data validation ✔️
+Good UI and UX ?
 
 ## Contact Us
 
