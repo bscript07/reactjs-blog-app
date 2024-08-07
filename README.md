@@ -53,9 +53,9 @@ Here is a list of some registered users on the platform:
 
 | **Name**    | **Email**        | **Posts** | **Avatar**          |
 |-------------|------------------|-----------|---------------------|
-| Vili Petrova| vili@gmail.com | 1 | ![Vili's Avatar](url-to-avatar)   |
-|Nikol Petrova| niki@gmail.com | 3 | ![Nikol's Avatar](url-to-avatar)   |
-| Alex Petrov |alex@example.com| 1 | ![Alex's Avatar](url-to-avatar)   |
+| Vili Petrova| vili@gmail.com | 1 | ![Vili's Avatar](https://github.com/userattachments/assets/03307f1483e04c87-8340-461c62962f04)   |
+|Nikol Petrova| niki@gmail.com | 3 | ![Nikol's Avatar]()  |
+| Alex Petrov |alex@example.com| 1 | ![Alex's Avatar]()   |
 
 ### User Roles
 
