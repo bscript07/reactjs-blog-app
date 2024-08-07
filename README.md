@@ -1,7 +1,5 @@
 # ReactJS - June 2024
 
----
-
 ## Welcome to the MERN Blog Application
 
 Welcome to the MERN Blog Application! This guide will help you understand how to use the features of the app, manage your account, and get the most out of the platform.
