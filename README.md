@@ -31,7 +31,7 @@ Welcome to the MERN Blog Application! This guide will help you understand how to
    - **Navigate to the Create Post Page**: Use the "Create Post" button from the main menu.
    - **Fill Out the Form**: Enter the title, select a category, and add your content using the rich text editor.
    - **Add a Thumbnail**: Upload an image to serve as the thumbnail for your post.
-   - **Submit**: Click "Publish" to create your post.
+   - **Submit**: Click "Create" to create your post.
 
 2. **Editing a Post**
 
