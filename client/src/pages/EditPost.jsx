@@ -8,9 +8,9 @@ import axios from "axios";
 const EditPost = () => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('Uncategorized');
-  const [error, setError] = useState('');
   const [description, setDescription] = useState('');
   const [thumbnail, setThumbnail] = useState('');
+  const [error, setError] = useState('');
 
   const { currentUser } = useContext(UserContext);
   const token = currentUser?.token;

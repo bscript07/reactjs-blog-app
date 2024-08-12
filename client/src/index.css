@@ -302,6 +302,20 @@ footer {
     margin-bottom: 0.7rem;
 }
 
+/*POST LIKES AND COMMENTS*/
+
+.post-details__like {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-count__like {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /*REGISTER*/
 
 .form {
