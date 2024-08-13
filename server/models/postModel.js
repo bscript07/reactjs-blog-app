@@ -6,7 +6,12 @@ const postSchema = new Schema({
     description: {type: String, required: true},
     creator: {type: Schema.Types.ObjectId, ref: 'User'},
     thumbnail: {type: String, required: true},
-    likes: [{type: Schema.Types.ObjectId, ref: 'User'}]
+    likes: [{type: Schema.Types.ObjectId, ref: 'User'}],
+    comments: [{
+        text: { type: String, required: true },
+        postedBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+        created: { type: Date, default: Date.now },
+    }],
 }, {timestamps: true})
 
 module.exports = model('Post', postSchema);

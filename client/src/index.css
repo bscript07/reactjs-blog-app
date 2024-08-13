@@ -304,6 +304,19 @@ footer {
 
 /*POST LIKES AND COMMENTS*/
 
+
+.like-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2.2rem;
+    margin-top: 1.6rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .post-details__like {
     display: flex;
     align-items: center;
@@ -314,7 +327,60 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.3rem;
 }
+
+.comments-section {
+    margin: 0 auto;
+    max-width: 600px;
+    padding: 1rem;
+}
+
+.comments-section h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.comments-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.comments-section textarea {
+    width: 100%;
+    max-width: 600px;
+    height: 100px;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.comments-section .submit-btn {
+    width: 100%;
+    max-width: 200px;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff; /* Adjust color as needed */
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+}
+
+.comments-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.comments-section li {
+    border-bottom: 1px solid #ddd;
+    padding: 0.5rem 0;
+}
+
 
 /*REGISTER*/
 

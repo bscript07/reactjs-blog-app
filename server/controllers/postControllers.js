@@ -1,7 +1,7 @@
 const Post = require("../models/postModel");
 const User = require("../models/userModel");
 const path = require("path");
-const { v4: uuid } = require('uuid');
+const { v4: uuid } = require("uuid");
 const HttpError = require("../models/errorModel");
 const fs = require("fs");
 
@@ -9,12 +9,18 @@ const createPost = async (req, res, next) => {
   try {
     let { title, category, description } = req.body;
 
-    if (!title || !category || !description || !req.files || !req.files.thumbnail) {
+    if (
+      !title ||
+      !category ||
+      !description ||
+      !req.files ||
+      !req.files.thumbnail
+    ) {
       return next(new HttpError("Missing required fields or file", 422));
     }
 
     const { thumbnail } = req.files;
-    
+
     // Check the file size
     if (thumbnail.size > 2000000) {
       return next(new HttpError("Thumbnail file size exceeds 2MB", 422));
@@ -24,7 +30,7 @@ const createPost = async (req, res, next) => {
     const newFileName = `${uuid()}${fileExtension}`;
 
     // Ensure uploads directory exists
-    const uploadsDir = path.join(__dirname, '..', 'uploads');
+    const uploadsDir = path.join(__dirname, "..", "uploads");
     if (!fs.existsSync(uploadsDir)) {
       fs.mkdirSync(uploadsDir);
     }
@@ -46,7 +52,7 @@ const createPost = async (req, res, next) => {
         thumbnail: newFileName,
         creator: req.user.id,
       });
-
+      
       if (!newPost) {
         return next(new HttpError("Failed to create post", 422));
       }
@@ -80,7 +86,12 @@ const getPosts = async (req, res, next) => {
 const getPost = async (req, res, next) => {
   try {
     const postId = req.params.id;
-    const post = await Post.findById(postId);
+    const post = await Post.findById(postId)
+    .populate({
+      path: 'comments.postedBy',
+      select: 'name'
+    });
+
     if (!post) {
       return next(new HttpError("Post not found", 404));
     }
@@ -128,14 +139,21 @@ const editPost = async (req, res, next) => {
     const oldPost = await Post.findById(postId);
     if (req.user.id == oldPost.creator) {
       if (!req.files) {
-        updatedPost = await Post.findByIdAndUpdate(postId, { title, category, description }, { new: true });
+        updatedPost = await Post.findByIdAndUpdate(
+          postId,
+          { title, category, description },
+          { new: true }
+        );
       } else {
         // delete old thumbnail from db
-        fs.unlink(path.join(__dirname, "..", "uploads", oldPost.thumbnail), async (err) => {
+        fs.unlink(
+          path.join(__dirname, "..", "uploads", oldPost.thumbnail),
+          async (err) => {
             if (err) {
               return next(new HttpError(err));
             }
-          });
+          }
+        );
 
         // upload new thumbnail
         const { thumbnail } = req.files;
@@ -147,14 +165,25 @@ const editPost = async (req, res, next) => {
 
         fileName = thumbnail.name;
         let splittedFilename = fileName.split(".");
-        newFileName = splittedFilename[0] + uuid() + "." + splittedFilename[splittedFilename.length - 1];
-        thumbnail.mv(path.join(__dirname, "..", "uploads", newFileName), async (err) => {
+        newFileName =
+          splittedFilename[0] +
+          uuid() +
+          "." +
+          splittedFilename[splittedFilename.length - 1];
+        thumbnail.mv(
+          path.join(__dirname, "..", "uploads", newFileName),
+          async (err) => {
             if (err) {
               return next(new HttpError(err));
             }
-          });
+          }
+        );
 
-        updatedPost = await Post.findByIdAndUpdate(postId, { title, category, description, thumbnail: newFileName }, { new: true });
+        updatedPost = await Post.findByIdAndUpdate(
+          postId,
+          { title, category, description, thumbnail: newFileName },
+          { new: true }
+        );
       }
     }
     if (!updatedPost) {
@@ -178,7 +207,9 @@ const deletePost = async (req, res, next) => {
     const fileName = post?.thumbnail;
     if (req.user.id == post.creator) {
       // delete thumbnail from uploads folder
-      fs.unlink(path.join(__dirname, "..", "uploads", fileName), async (err) => {
+      fs.unlink(
+        path.join(__dirname, "..", "uploads", fileName),
+        async (err) => {
           if (err) {
             return next(new HttpError(err));
           } else {
@@ -225,8 +256,36 @@ const likePost = async (req, res, next) => {
 
     res.status(200).json({
       isLiked: !alreadyLiked,
-      likes: post.likes
+      likes: post.likes,
     });
+  } catch (error) {
+    return next(new HttpError("Server error", 404));
+  }
+};
+
+const commentPost = async (req, res, next) => {
+  try {
+    const postId = req.params.id;
+    const userId = req.user.id;
+    const { text } = req.body;
+
+    if (!text || text.trim().length === 0) {
+      return next(new HttpError("Comment text is required", 422));
+    }
+
+    const post = await Post.findById(postId);
+    if (!post) {
+      return next(new HttpError("Post not found", 404));
+    }
+
+    post.comments.push({
+      text,
+      postedBy: userId,
+    })
+
+    await post.save();
+
+    res.status(201).json(post);
 
   } catch (error) {
     return next(new HttpError("Server error", 404));
@@ -241,5 +300,6 @@ module.exports = {
   getUserPosts,
   editPost,
   deletePost,
-  likePost
+  likePost,
+  commentPost
 };

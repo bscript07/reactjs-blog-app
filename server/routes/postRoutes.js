@@ -1,6 +1,6 @@
 const {Router} = require('express');
 
-const { createPost, getPosts, getPost, getCategoryPosts, getUserPosts, editPost, deletePost, likePost } = require('../controllers/postControllers');
+const { createPost, getPosts, getPost, getCategoryPosts, getUserPosts, editPost, deletePost, likePost, commentPost } = require('../controllers/postControllers');
 const authMiddleware = require('../middleware/authMiddleware');
 const router = Router();
 
@@ -12,5 +12,6 @@ router.get('/users/:id', getUserPosts)
 router.patch('/:id', authMiddleware, editPost)
 router.delete('/:id', authMiddleware, deletePost)
 router.post('/:id/like', authMiddleware, likePost)
+router.post('/:id/comment', authMiddleware, commentPost);
 
 module.exports = router;

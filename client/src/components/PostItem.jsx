@@ -25,3 +25,4 @@ const PostItem = ({postID, category, title, description, authorID, thumbnail, cr
 }
 
 export default PostItem
+

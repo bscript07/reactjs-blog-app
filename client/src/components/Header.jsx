@@ -27,6 +27,7 @@ const Header = () => {
         {currentUser?.id && isNavShowing && <ul className="nav__menu">
           <li><Link to={`/profile/${currentUser?.id}`} onClick={closeNavHandler}>{currentUser.name}</Link></li>
           <li><Link to='/create' onClick={closeNavHandler}>Create Post</Link></li>
+          <li><Link to='/forum' onClick={closeNavHandler}>Forum</Link></li>
           <li><Link to='/authors' onClick={closeNavHandler}>Authors</Link></li>
           <li><Link to='/logout' onClick={closeNavHandler}>Logout</Link></li>
         </ul>}
