@@ -285,10 +285,93 @@ const commentPost = async (req, res, next) => {
 
     await post.save();
 
-    res.status(201).json(post);
+    const updatedPost = await Post.findById(postId)
+    .populate({
+      path: 'comments.postedBy',
+      select: 'name' // Ensure you include the fields you need
+    });
+
+    res.status(201).json({ comments: updatedPost.comments });
 
   } catch (error) {
     return next(new HttpError("Server error", 404));
+  }
+};
+
+const commentEdit = async (req, res, next) => {
+  try {
+    const { postId, commentId } = req.params;
+    const { text } = req.body;
+
+    if (!text || text.trim().length === 0) {
+      return next(new HttpError("Comment text is required", 422));
+    }
+
+    const post = await Post.findById(postId);
+    if (!post) {
+      return next(new HttpError("Post not found", 404));
+    }
+
+    const comment = post.comments.id(commentId);
+    if (!comment) {
+      return next(new HttpError("Comment not found", 404));
+    }
+
+    if (comment.postedBy.toString() !== req.user.id) {
+      return next(new HttpError("Unauthorized to edit this comment", 403));
+    }
+
+    comment.text = text;
+    await post.save();
+
+    const updatedPost = await Post.findById(postId)
+    .populate({
+      path: 'comments.postedBy',
+      select: 'name'
+    });
+
+    res.status(200).json({ comments: updatedPost.comments });
+
+  } catch (error) {
+    return next(new HttpError("Server error", 500));
+  }
+}
+
+const commentDelete = async (req, res, next) => {
+  try {
+    const { postId, commentId } = req.params;
+
+    if (!postId || !commentId) {
+      return next(new HttpError("Invalid post or comment ID", 400));
+    }
+
+    const post = await Post.findById(postId);
+    if (!post) {
+      return next(new HttpError("Post not found", 404));
+    }
+
+    const comment = post.comments.id(commentId);
+    if (!comment) {
+      return next(new HttpError("Comment not found", 404));
+    }
+
+    if (comment.postedBy.toString() !== req.user.id) {
+      return next(new HttpError("Unauthorized to delete this comment", 403));
+    }
+
+    post.comments.id(commentId).deleteOne();
+    await post.save();
+
+    const updatedPost = await Post.findById(postId)
+      .populate({
+        path: 'comments.postedBy',
+        select: 'name'
+      });
+
+    res.status(200).json({ comments: updatedPost.comments });
+
+  } catch (error) {
+    return next(new HttpError("Server error", 500));
   }
 };
 
@@ -301,5 +384,7 @@ module.exports = {
   editPost,
   deletePost,
   likePost,
-  commentPost
+  commentPost,
+  commentEdit,
+  commentDelete
 };

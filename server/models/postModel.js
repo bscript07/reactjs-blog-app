@@ -10,7 +10,7 @@ const postSchema = new Schema({
     comments: [{
         text: { type: String, required: true },
         postedBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-        created: { type: Date, default: Date.now },
+        created: { type: Date, default: Date.now() },
     }],
 }, {timestamps: true})
 

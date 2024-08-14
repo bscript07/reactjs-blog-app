@@ -9,6 +9,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 const PostDetails = () => {
     const { id } = useParams();
+    const { currentUser } = useContext(UserContext);
     const [post, setPost] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -16,18 +17,19 @@ const PostDetails = () => {
     const [isLiked, setIsLiked] = useState(false);
     const [commentText, setCommentText] = useState("");
     const [comments, setComments] = useState([]);
-
-    const { currentUser } = useContext(UserContext);
+    const [editingCommentId, setEditingCommentId] = useState(null);
+    const [editText, setEditText] = useState("");
 
     useEffect(() => {
         const getPost = async () => {
             setIsLoading(true);
             try {
                 const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/${id}`);
-                setPost(response.data);
-                setLikes(response.data.likes || []);
-                setIsLiked(response.data.likes.includes(currentUser?.id));
-                setComments(response.data.comments || []);
+                const postData = response.data;
+                setPost(postData);
+                setLikes(postData.likes || []);
+                setIsLiked(postData.likes.includes(currentUser?.id));
+                setComments(Array.isArray(postData.comments) ? postData.comments : []);
             } catch (error) {
                 setError(error.message);
             }
@@ -54,21 +56,70 @@ const PostDetails = () => {
         }
     };
 
-    const handleCommentSubmit = async () => {
+    const handleCommentSubmit = async (e) => {
+      e.preventDefault();
+
+      if (commentText.trim() === "") return;
+
         try {
             const token = currentUser?.token;
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts/${id}/comment`, { text: commentText }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
-            if (response.data) {
+            if (response.data && Array.isArray(response.data.comments)) {
                 setComments(response.data.comments);
                 setCommentText("");
+            } else {
+              console.error("Unexpected response format:", response.data);
             }
         } catch (error) {
             console.log("Failed to add comment:", error);
         }
     };
+
+    const handleCommentEdit = async (commentId) => {
+      try {
+        const token = currentUser?.token;
+
+        const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}/posts/${id}/comments/${commentId}`, { text: editText }, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
+        if (response.data && Array.isArray(response.data.comments)) {
+          setComments(response.data.comments);
+          setEditingCommentId(null);
+          setEditText("");
+        } else {
+          console.error("Unexpected response format:", response.data);
+        }
+
+      } catch (error) {
+        console.log('Failed to edit a comment:', error);
+        
+      }
+    }
+
+    const handleCommentDelete = async (commentId) => {
+      try {
+        const token = currentUser?.token;
+        console.log(token);
+        
+
+        const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}/posts/${id}/comments/${commentId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+    
+        if (response.data && Array.isArray(response.data.comments)) {
+          setComments(response.data.comments);
+        } else {
+          console.error("Unexpected response format:", response.data);
+        }
+      } catch (error) {
+        console.error('Failed to delete a comment:', error.response ? error.response.data : error.message);
+      }
+    };
+    
 
     if (isLoading) {
         return <Spinner />;
@@ -80,16 +131,19 @@ const PostDetails = () => {
             {post && <div className="container post-details__container">
                 <div className="post-details__header">
                     <PostAuthor authorID={post.creator} createdAt={post.createdAt} />
+
                     {currentUser?.id === post.creator && <div className="post-details__buttons">
                         <Link to={`/posts/${post?._id}/edit`} className="btn sm primary">Edit</Link>
                         <DeletePost postId={id} />
                     </div>}
+
                 </div>
                 <h1>{post.title}!</h1>
                 <div className="post-details__thumbnail">
                     <img src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${post.thumbnail}`} alt="" />
                 </div>
                 <p dangerouslySetInnerHTML={{ __html: post.description }}></p>
+
                 {currentUser && <div className="like-container">
                     <div className="post-details__like">
                         <button onClick={handleLike} className="like-button">
@@ -112,12 +166,35 @@ const PostDetails = () => {
                     <ul>
                         {comments.map(comment => (
                             <li key={comment._id}>
-                                <p>{comment.text}</p>
+                                <p>{editingCommentId === comment._id ? (
+                                  <input 
+                                  type="text"
+                                  value={editText}
+                                  onChange={(e) => setEditText(e.target.value)} />
+                                ) : (
+                                  comment.text
+                                )}</p>
                                 <small>By: {comment.postedBy?.name}</small>
+                                {currentUser?.id === comment.postedBy?._id && (
+                                  <div>
+                                    {editingCommentId === comment._id ? (
+                                      <div>
+                                        <button onClick={ () => handleCommentEdit(comment._id)} className="save-btn">Save</button>
+                                        <button onClick={() => { setEditingCommentId(null); setEditText('');}} className="cancel-btn">Cancel</button>
+                                      </div>
+                                    ) : (
+                                      <div>
+                                       <button onClick={() => { setEditingCommentId(comment._id); setEditText(comment.text);}} className="edit-btn">Edit</button>
+                                       <button onClick={() => handleCommentDelete(comment._id)} className="delete-btn">Delete</button>
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
                             </li>
                         ))}
                     </ul>
                 </div>}
+
             </div>}
         </section>
     );
