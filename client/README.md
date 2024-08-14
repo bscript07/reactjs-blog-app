@@ -10,6 +10,8 @@ Welcome to the MERN Blog Application! This is a full-stack application that allo
 - **Post Management**: Create, edit, and delete posts.
 - **Rich Text Editor**: Utilize React Quill for rich text editing.
 - **Responsive Design**: Optimized for various screen sizes.
+- **Likes system**: Users can like posts.
+- **Comments System**: Users can add, edit, and delete comments on posts.
 - **Error Handling**: User-friendly error messages.
 
 ## Installation
