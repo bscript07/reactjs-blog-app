@@ -13,6 +13,8 @@ const Login = () => {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useContext(UserContext);
 
+  const apiUrl = process.env.REACT_APP_BASE_URL;
+
   useEffect(() => {
     if (currentUser) {
       navigate('/');
@@ -30,7 +32,7 @@ const Login = () => {
     e.preventDefault();
     setError('');
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/login`, userData);
+      const response = await axios.post(`${apiUrl}/users/login`, userData);
       const user = await response.data;
 
       setCurrentUser(user);

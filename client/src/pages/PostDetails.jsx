@@ -20,11 +20,14 @@ const PostDetails = () => {
     const [editingCommentId, setEditingCommentId] = useState(null);
     const [editText, setEditText] = useState("");
 
+    const apiUrl = process.env.REACT_APP_BASE_URL;
+    const assetsUrl = process.env.REACT_APP_ASSETS_URL;
+
     useEffect(() => {
         const getPost = async () => {
             setIsLoading(true);
             try {
-                const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/${id}`);
+                const response = await axios.get(`${apiUrl}/posts/${id}`);
                 const postData = response.data;
                 setPost(postData);
                 setLikes(postData.likes || []);
@@ -42,7 +45,7 @@ const PostDetails = () => {
     const handleLike = async () => {
         try {
             const token = currentUser?.token;
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts/${id}/like`, {}, {
+            const response = await axios.post(`${apiUrl}/posts/${id}/like`, {}, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -63,7 +66,7 @@ const PostDetails = () => {
 
         try {
             const token = currentUser?.token;
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts/${id}/comment`, { text: commentText }, {
+            const response = await axios.post(`${apiUrl}/posts/${id}/comment`, { text: commentText }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -82,7 +85,7 @@ const PostDetails = () => {
       try {
         const token = currentUser?.token;
 
-        const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}/posts/${id}/comments/${commentId}`, { text: editText }, {
+        const response = await axios.patch(`${apiUrl}/posts/${id}/comments/${commentId}`, { text: editText }, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -106,7 +109,7 @@ const PostDetails = () => {
         console.log(token);
         
 
-        const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}/posts/${id}/comments/${commentId}`, {
+        const response = await axios.delete(`${apiUrl}/posts/${id}/comments/${commentId}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
     
@@ -140,7 +143,7 @@ const PostDetails = () => {
                 </div>
                 <h1>{post.title}!</h1>
                 <div className="post-details__thumbnail">
-                    <img src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${post.thumbnail}`} alt="" />
+                    <img src={`${assetsUrl}/uploads/${post.thumbnail}`} alt="" />
                 </div>
                 <p dangerouslySetInnerHTML={{ __html: post.description }}></p>
 

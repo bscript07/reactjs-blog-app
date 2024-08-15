@@ -9,11 +9,13 @@ const AuthorPosts = () => {
   const [isLoading, setIsLoading] = useState(false);
   const {id} = useParams();
 
+  const apiUrl = process.env.REACT_APP_BASE_URL;
+
   useEffect(() => {
       const fetchPosts = async () => {
           setIsLoading(true)
           try {
-              const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/users/${id}`)
+              const response = await axios.get(`${apiUrl}/posts/users/${id}`)
               setPosts(response?.data)
           } catch (err) {
               console.log(err);

@@ -9,11 +9,13 @@ const CategoryPosts = () => {
   const [isLoading, setIsLoading] = useState(false);
   const {category} = useParams();
 
+  const apiUrl = process.env.REACT_APP_BASE_URL;
+
   useEffect(() => {
       const fetchPosts = async () => {
           setIsLoading(true)
           try {
-              const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/categories/${category}`)
+              const response = await axios.get(`${apiUrl}/posts/categories/${category}`)
               setPosts(response?.data)
           } catch (err) {
               console.log(err);

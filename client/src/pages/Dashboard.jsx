@@ -10,6 +10,9 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
   const {id} = useParams();
 
+  const apiUrl = process.env.REACT_APP_BASE_URL;
+  const assetsUrl = process.env.REACT_APP_ASSETS_URL;
+
   const {currentUser} = useContext(UserContext)
   const token = currentUser?.token
   const navigate = useNavigate()
@@ -25,7 +28,7 @@ const Dashboard = () => {
       setIsLoading(true);
 
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/users/${id}`, {withCredentials: true, headers: {Authorization: `Bearer ${token}`}});
+        const response = await axios.get(`${apiUrl}/posts/users/${id}`, {withCredentials: true, headers: {Authorization: `Bearer ${token}`}});
         setPosts(response.data);
       } catch (error) {
         console.log(error);
@@ -48,7 +51,7 @@ const Dashboard = () => {
           return <article key={post.id} className="dashboard__post">
             <div className="dashboard__post-info">
               <div className="dashboard__post-thumbnail">
-                <img src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${post.thumbnail}`} alt="" />
+                <img src={`${assetsUrl}/uploads/${post.thumbnail}`} alt="" />
               </div>
               <h5>{post.title}</h5>
             </div>

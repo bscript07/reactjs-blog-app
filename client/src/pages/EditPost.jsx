@@ -15,6 +15,9 @@ const EditPost = () => {
   const { currentUser } = useContext(UserContext);
   const token = currentUser?.token;
 
+  const apiUrl = process.env.REACT_APP_BASE_URL;
+  const assetsUrl = process.env.REACT_APP_ASSETS_URL;
+
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -46,7 +49,7 @@ const EditPost = () => {
   useEffect(() => {
     const getPost = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/${id}`);
+        const response = await axios.get(`${apiUrl}/posts/${id}`);
 
         setTitle(response.data.title);
         setDescription(response.data.description);
@@ -69,7 +72,7 @@ const EditPost = () => {
     postData.set('thumbnail', thumbnail);
 
     try {
-      const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}/posts/${id}`, postData, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } })
+      const response = await axios.patch(`${apiUrl}/posts/${id}`, postData, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } })
 
       if (response.status == 200) {
         return navigate('/');

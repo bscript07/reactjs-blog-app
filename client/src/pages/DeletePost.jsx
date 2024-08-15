@@ -13,6 +13,8 @@ const DeletePost = ({postId: id}) => {
   const navigate = useNavigate()
   const location = useLocation()
 
+  const apiUrl = process.env.REACT_APP_BASE_URL;
+
   useEffect(() => {
     if (!token) {
       navigate('/login')
@@ -22,7 +24,7 @@ const DeletePost = ({postId: id}) => {
   const removePost = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}/posts/${id}`, {withCredentials: true, headers: {Authorization: `Bearer ${token}`}});
+      const response = await axios.delete(`${apiUrl}/posts/${id}`, {withCredentials: true, headers: {Authorization: `Bearer ${token}`}});
 
       if (response.status == 200) {
         if (location.pathname == `/myposts/${currentUser.id}`) {

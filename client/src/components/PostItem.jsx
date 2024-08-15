@@ -5,10 +5,13 @@ import PostAuthor from './PostAuthor'
 const PostItem = ({postID, category, title, description, authorID, thumbnail, createdAt}) => {
     const shortDescription = description.length > 145 ? description.substr(0, 145) + '...' : description;
     const postTitle = title.length > 30 ? title.substr(0, 30) + '...' : title;
+
+    const assetsUrl = process.env.REACT_APP_ASSETS_URL;
+
   return (
     <article className='post'>
         <div className="post__thumbnail">
-            <img src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${thumbnail}`} alt={title}/>
+            <img src={`${assetsUrl}/uploads/${thumbnail}`} alt={title}/>
         </div>
         <div className="post__content">
             <Link to={`/posts/${postID}`}>

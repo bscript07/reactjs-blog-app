@@ -16,6 +16,8 @@ const CreatePost = () => {
   const { currentUser } = useContext(UserContext);
   const token = currentUser?.token;
 
+  const apiUrl = process.env.REACT_APP_BASE_URL;
+
   useEffect(() => {
     if (!token) {
       navigate('/login');
@@ -51,7 +53,7 @@ const CreatePost = () => {
     postData.set('thumbnail', thumbnail);
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts`, postData, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } });
+      const response = await axios.post(`${apiUrl}/posts`, postData, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } });
 
       if (response.status === 201) {
         return navigate('/');

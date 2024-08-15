@@ -15,6 +15,8 @@ const Register = () => {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useContext(UserContext);
 
+  const apiUrl = process.env.REACT_APP_BASE_URL;
+
   useEffect(() => {
     if (currentUser) {
       navigate('/');
@@ -31,9 +33,9 @@ const Register = () => {
     e.preventDefault();
     setError('');
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/register`, userData);
+      const response = await axios.post(`${apiUrl}/users/register`, userData);
       const newUser = await response.data;
-      console.log(newUser);
+      // console.log(newUser);
 
       if (!newUser) {
         setError('Failed to register user. Please try again.');

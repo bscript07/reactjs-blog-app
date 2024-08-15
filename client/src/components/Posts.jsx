@@ -7,11 +7,13 @@ const Posts = () => {
     const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
+    const apiUrl = process.env.REACT_APP_BASE_URL;
+
     useEffect(() => {
         const fetchPosts = async () => {
             setIsLoading(true)
             try {
-                const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts`)
+                const response = await axios.get(`${apiUrl}/posts`)
                 setPosts(response?.data)
             } catch (err) {
                 console.log(err);
