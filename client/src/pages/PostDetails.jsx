@@ -163,6 +163,7 @@ const PostDetails = () => {
                         />
                         <button type="submit" className="submit-btn">Submit</button>
                     </form>
+                    <div className="comments-wrapper">
                     <ul>
                         {comments.map(comment => (
                             <li key={comment._id}>
@@ -174,7 +175,7 @@ const PostDetails = () => {
                                 ) : (
                                   comment.text
                                 )}</p>
-                                <small>By: {comment.postedBy?.name}</small>
+                                <small className="comment-styles">By: {comment.postedBy?.name}</small>
                                 {currentUser?.id === comment.postedBy?._id && (
                                   <div>
                                     {editingCommentId === comment._id ? (
@@ -193,6 +194,7 @@ const PostDetails = () => {
                             </li>
                         ))}
                     </ul>
+                    </div>
                 </div>}
 
             </div>}
