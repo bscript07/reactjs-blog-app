@@ -45,6 +45,28 @@ Welcome to the MERN Blog Application! This guide will help you understand how to
    - **Access the Post**: Navigate to the post you want to delete.
    - **Delete**: Click on the "Delete" button to remove the post from your blog.
 
+4. **Managing Likes**
+
+   - **Liking a Post**: Click on the heart icon to like a post. The number of likes updates in real-time.
+   - **Unlike a Post**: Click the heart icon again to unlike the post if you change your mind.
+  
+5. **Managing Comments**
+
+    **Adding Comments**
+   
+   - **Navigate to a Post**: View a post and scroll down to the comments section.
+   - **Submit a Comment**: Type your comment in the textarea and click "Submit" to add it to the post.
+  
+   **Editing Comments**
+
+   - **Find Your Comment**: Locate the comment you want to edit.
+   - **Edit**: Click on the "Edit" button next to your comment, modify the text, and click "Save" to update it.
+  
+   **Deleting Comments**
+
+   - **Find Your Comment**: Locate the comment you want to delete.
+   - **Delete**: Click on the "Delete" button next to your comment to remove it from the post.
+  
 ## Registered Users
 
 ### User List
@@ -60,8 +82,8 @@ Here is a list of some registered users on the platform:
 ### User Roles
 
 - **Admin**: Manages users, posts, and site settings.
-- **Author**: Can create, edit, and delete their own posts.
-- **Reader**: Can view posts and interact with content.
+- **Author**: Can create, edit, and delete their own posts. Can also add, edit, and delete their own comments.
+- **Reader**: Can view posts, like posts, and interact with comments.
 
 ## Tech stack:
 
