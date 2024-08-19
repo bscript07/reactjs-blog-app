@@ -13,9 +13,17 @@ const registerUser = async (req, res, next) => {
         if (!name || !email || !password || !confirmPassword) {
             return next(new HttpError('Fill in all fields.', 422));
         }
+        
+        const newName = name.toLowerCase();
+        const nameExists = await User.findOne({ name: newName });
+        
+        if(nameExists) {
+            return next(new HttpError('Name already exists.', 422));
+        }
 
         const newEmail = email.toLowerCase();
         const emailExists = await User.findOne({ email: newEmail });
+        
         if (emailExists) {
             return next(new HttpError('Email already exists.', 422));
         }
