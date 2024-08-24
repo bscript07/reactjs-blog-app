@@ -106,8 +106,6 @@ const PostDetails = () => {
     const handleCommentDelete = async (commentId) => {
       try {
         const token = currentUser?.token;
-        console.log(token);
-        
 
         const response = await axios.delete(`${apiUrl}/posts/${id}/comments/${commentId}`, {
             headers: { Authorization: `Bearer ${token}` }
@@ -132,6 +130,7 @@ const PostDetails = () => {
         <section className="post-details">
             {error && <p className="error">{error}</p>}
             {post && <div className="container post-details__container">
+
                 <div className="post-details__header">
                     <PostAuthor authorID={post.creator} createdAt={post.createdAt} />
 
@@ -139,8 +138,8 @@ const PostDetails = () => {
                         <Link to={`/posts/${post?._id}/edit`} className="btn sm primary">Edit</Link>
                         <DeletePost postId={id} />
                     </div>}
-
                 </div>
+                
                 <h1>{post.title}!</h1>
                 <div className="post-details__thumbnail">
                     <img src={`${assetsUrl}/uploads/${post.thumbnail}`} alt="" />

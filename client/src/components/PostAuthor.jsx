@@ -13,10 +13,9 @@ TimeAgo.addLocale(ru);
 
 const PostAuthor = ({ authorID, createdAt }) => {
   const [author, setAuthor] = useState({});
-  
+
   const apiUrl = process.env.REACT_APP_BASE_URL;
   const assetsUrl = process.env.REACT_APP_ASSETS_URL;
-
 
   useEffect(() => {
     const getAuthor = async () => {
@@ -30,7 +29,7 @@ const PostAuthor = ({ authorID, createdAt }) => {
     };
 
     getAuthor();
-  }, [authorID]);
+  }, []);
 
   return (
     <Link to={`/posts/users/${authorID}`} className='post__author'>

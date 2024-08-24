@@ -14,6 +14,13 @@ const registerUser = async (req, res, next) => {
             return next(new HttpError('Fill in all fields.', 422));
         }
 
+        const newName = name.toLowerCase();
+        const nameExists = await User.findOne({ newName });
+
+        if (nameExists) {
+            return next(new HttpError('Name already exists.', 422));
+        }
+
         const newEmail = email.toLowerCase();
         const emailExists = await User.findOne({ email: newEmail });
         if (emailExists) {
@@ -30,12 +37,12 @@ const registerUser = async (req, res, next) => {
 
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
-        const newUser = await User.create({ name, email: newEmail, password: hashedPassword });
+        const newUser = await User.create({ name, newName, email: newEmail, password: hashedPassword });
 
         const { _id: id } = newUser;
-        const token = jwt.sign({id, name}, process.env.JWT_SECRET, {expiresIn: '1d'})
+        const token = jwt.sign({ id, name }, process.env.JWT_SECRET, {expiresIn: '1d'})
 
-        res.status(201).json({id, token, name, email: newEmail})
+        res.status(201).json({id, token, name, email: newEmail});
 
     } catch (error) {
         return next(new HttpError('User registration failed.', 422));

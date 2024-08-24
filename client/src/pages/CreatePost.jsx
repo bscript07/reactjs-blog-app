@@ -17,6 +17,7 @@ const CreatePost = () => {
   const token = currentUser?.token;
 
   const apiUrl = process.env.REACT_APP_BASE_URL;
+  
 
   useEffect(() => {
     if (!token) {

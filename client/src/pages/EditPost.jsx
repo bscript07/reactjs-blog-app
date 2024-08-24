@@ -16,7 +16,6 @@ const EditPost = () => {
   const token = currentUser?.token;
 
   const apiUrl = process.env.REACT_APP_BASE_URL;
-  const assetsUrl = process.env.REACT_APP_ASSETS_URL;
 
   const navigate = useNavigate();
   const { id } = useParams();

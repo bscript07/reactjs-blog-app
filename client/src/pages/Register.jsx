@@ -35,7 +35,6 @@ const Register = () => {
     try {
       const response = await axios.post(`${apiUrl}/users/register`, userData);
       const newUser = await response.data;
-      // console.log(newUser);
 
       if (!newUser) {
         setError('Failed to register user. Please try again.');
